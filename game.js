@@ -175,6 +175,9 @@ var assert = function(value) {
 var testCardGetValue = function() {
 	var aceSpades = new Card(4,1);
 	assert(aceSpades.getValue() === 11);
+
+	var kingSpades = new Card(4,13);
+	assert(kingSpades.getValue() === 10);
 };
 
 var testHandScore = function() {
