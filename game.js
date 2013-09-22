@@ -4,9 +4,7 @@ function log(s) {
 }
 
 // this is a generic card (suit, number)
-function Card(s, n) {
-	var suit = s;
-	var number = n;
+function Card(suit, number) {
 	this.getSuit = function() {
 		return suit;
 	};
@@ -42,14 +40,32 @@ function Card(s, n) {
 	};
 }
 
-// this deals a card at random
-function deal() {
-	var randSuit = Math.floor(Math.random() * 4 + 1);
-	var randNum = Math.floor(Math.random() * 13 + 1);
-	return new Card(randSuit,randNum);
+// this declares a deck, containing 52 unique cards
+function Deck(cards) {
+	var suit = [1, 2, 3, 4];
+	var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+	for (i = 0; i < suit.length; i++) {
+		for (y = 0; y < number.length; y++) {
+			cards[cards.length] = new Card(suit[i],number[y]);
+		}
+	}
+	this.getCards = function() {
+		return cards; 
+	};
 }
 
-// this deals two cards to the same person
+var deck = new Deck([]);
+
+// this prints out all the cards in the deck
+for (i = 0; i < deck.getCards().length; i++) {
+console.log(deck.getCards()[i].getDescription()) }
+
+// this deals a card at random from the deck
+function deal() {
+	var randCard = deck.getCards()[Math.floor(Math.random() * 52)];
+	return randCard;
+}
+// this deals cards into a hand
 function Hand(cards) {
 	// this adds cards to the array
 	this.hit = function() {
@@ -57,7 +73,7 @@ function Hand(cards) {
 	};
 	// this shows what cards are in the hand
 	this.getCards = function() {
-		return cards;
+		return cards; 
 	};
 	// this adds the cards together and gives score
 	this.score = function() {
@@ -66,6 +82,7 @@ function Hand(cards) {
 		for (var i = 0; i < cards.length; i++) {
 			cardsTotal += cards[i].getValue(); 	
 		}
+		// this allows Aces to be 11 or 1 to optimize score
 		for (var i = 0; i < cards.length && cardsTotal > 21; i++) {
 			if (cards[i].getValue() === 11) {
 				cardsTotal -= 10;
@@ -73,6 +90,7 @@ function Hand(cards) {
 		}
 		return cardsTotal;
 	};
+	// this tells you if there is an Ace in the hand
 	this.hasAce = function() {
 		for (var i = 0; i < cards.length; i++) {
 			if (cards[i].getValue() === 11) {
