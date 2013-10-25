@@ -44,8 +44,8 @@ function Card(suit, number) {
 function Deck(cards) {
 	var suit = [1, 2, 3, 4];
 	var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-	for (i = 0; i < suit.length; i++) {
-		for (y = 0; y < number.length; y++) {
+	for (var i = 0; i < suit.length; i++) {
+		for (var y = 0; y < number.length; y++) {
 			cards[cards.length] = new Card(suit[i],number[y]);
 		}
 	}
@@ -57,7 +57,7 @@ function Deck(cards) {
 var deck = new Deck([]);
 
 // this prints out all the cards in the deck
-for (i = 0; i < deck.getCards().length; i++) {
+for (var i = 0; i < deck.getCards().length; i++) {
 console.log(deck.getCards()[i].getDescription()) }
 
 // this deals a card at random from the deck
